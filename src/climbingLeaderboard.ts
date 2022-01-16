@@ -77,3 +77,35 @@ function climbingLeaderboard3(scores: number[], alice: number[]): number[] {
 }
 
 console.log(climbingLeaderboard3([100, 90, 90, 80], [70, 80, 105]));
+
+// process-4
+const climbingLeaderboard4 = (ranked: number[], player: number[]): number[] => {
+  ranked = [...new Set(ranked)];
+
+  const rankings: number[] = [];
+
+  player.forEach((p, index) => {
+    rankings[index] = ranked.length + 1;
+
+    let start = 0;
+    let end = ranked.length - 1;
+
+    while (start <= end) {
+      let mid = Math.floor((start + end) / 2);
+
+      if (p === ranked[mid]) {
+        rankings[index] = mid + 1;
+        break;
+      } else if (p > ranked[mid]) {
+        rankings[index] = mid + 1;
+        end = mid - 1;
+      } else {
+        start = mid + 1;
+      }
+    }
+  });
+
+  return rankings;
+};
+
+console.log(climbingLeaderboard4([100, 90, 90, 80], [70, 80, 105]));
